@@ -11,4 +11,8 @@ public enum OutputMessage {
     OutputMessage(String msg){
         this.message = msg;
     }
+
+    public String getMessage(){
+        return message;
+    }
 }

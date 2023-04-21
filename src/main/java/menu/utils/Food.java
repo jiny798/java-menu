@@ -61,4 +61,9 @@ public enum Food {
     Food(Category category){
         this.category = category;
     }
+
+    public static Food createFood(String foodName){
+        return Food.valueOf(foodName);
+    }
+
 }
