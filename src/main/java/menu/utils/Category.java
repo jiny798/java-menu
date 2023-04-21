@@ -12,4 +12,16 @@ public enum Category {
     Category(int i){
         this.index = i;
     }
+    public int getIndex(){
+        return this.index;
+    }
+
+    public static Category createCategory(int i){
+        for(Category category : values()){
+            if(category.getIndex() == i){
+                return category;
+            }
+        }
+        return null;
+    }
 }

@@ -2,10 +2,12 @@ package menu.controller;
 
 import menu.domain.Coach;
 import menu.service.MenuService;
+import menu.utils.Category;
 import menu.utils.Food;
 import menu.utils.OutputMessage;
 import menu.view.MenuView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,10 +24,11 @@ public class MenuController {
     public void run(){
         List<Coach> coachList = menuView.inputCoachName();
         readDisLikeFood(coachList);
-        System.out.println();
+
+        menuService.selectMenu(coachList);
 
         System.out.println(OutputMessage.RECOMMENDED_RESULT.getMessage());
-        //menuView.printMenuListByCoaches(coachList);
+        menuView.printMenuListByCoaches(coachList);
         System.out.println(OutputMessage.EXIT_MESSAGE.getMessage());
     }
 

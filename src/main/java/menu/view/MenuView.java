@@ -40,10 +40,9 @@ public class MenuView {
     }
 
     public void printMenuListByCoaches(List<Coach> coachList){
-        StringJoiner joiner = new StringJoiner(" | ");
-        coachList.stream()
-                .map(coach -> joiner.add(coach.toMessage()))
-                .collect(Collectors.toList());
+        for (Coach coach : coachList){
+            System.out.println(coach.toMessage());
+        }
     }
 
 

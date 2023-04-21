@@ -1,5 +1,8 @@
 package menu.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum Food {
     //일식
     규동(Category.일식),
@@ -62,8 +65,20 @@ public enum Food {
         this.category = category;
     }
 
+    public String getCategoryName(){return category.name();}
+
     public static Food createFood(String foodName){
         return Food.valueOf(foodName);
+    }
+
+    public static List<Food> getFoodListByCategoryName(String categoryName){
+        List<Food> foodList = new ArrayList<>();
+        for(Food food : values()){
+            if(food.getCategoryName().equals(categoryName)){
+                foodList.add(food);
+            }
+        }
+        return foodList;
     }
 
 }

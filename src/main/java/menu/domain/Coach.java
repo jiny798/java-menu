@@ -42,6 +42,6 @@ public class Coach {
         recommendFoods.stream()
                 .map(food-> joiner.add(food.name()) )
                 .collect(Collectors.toList());
-        return joiner.toString();
+        return "[ "+joiner.toString()+" ]";
     }
 }
