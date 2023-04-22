@@ -1,5 +1,6 @@
 package menu.domain;
 
+import menu.utils.ErrorMessage;
 import menu.utils.Food;
 
 import java.util.ArrayList;
@@ -13,7 +14,16 @@ public class Coach {
     private List<Food> recommendFoods = new ArrayList<>();
 
     private Coach(String name){
+        if(!validateName(name)){
+            throw new IllegalArgumentException(ErrorMessage.COACH_NAME_LENGTH_ERROR.getMsg());
+        }
         this.name = name;
+    }
+    public boolean validateName(String name){
+        if(name.length()<2 || name.length()>4){
+            return false;
+        }
+        return true;
     }
 
     public static Coach createCoach(String name){

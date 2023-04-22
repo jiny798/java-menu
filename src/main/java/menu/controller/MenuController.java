@@ -3,12 +3,14 @@ package menu.controller;
 import menu.domain.Coach;
 import menu.service.MenuService;
 import menu.utils.Category;
+import menu.utils.ErrorMessage;
 import menu.utils.Food;
 import menu.utils.OutputMessage;
 import menu.view.MenuView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class MenuController {
@@ -22,7 +24,8 @@ public class MenuController {
     }
 
     public void run(){
-        List<Coach> coachList = menuView.inputCoachName();
+        List<Coach> coachList = new ArrayList<>();
+        inputCoachList(coachList);
         readDisLikeFood(coachList);
 
         menuService.selectMenu(coachList);
@@ -38,4 +41,30 @@ public class MenuController {
                 .collect(Collectors.toList());
     }
 
+    public void inputCoachList(List<Coach> coachList){
+        try {
+            coachList = repeat(()->menuView.inputCoachName());
+            validationCoachList(coachList);
+        }catch (IllegalArgumentException ex){
+            System.out.println(ex.getMessage());
+            inputCoachList(coachList);
+        }
+
+    }
+
+    public <T> T repeat(Supplier<T> read){
+        try {
+            return read.get();
+        }catch (IllegalArgumentException ex){
+            System.out.println(ex.getMessage());
+            return repeat(read);
+        }
+    }
+
+    public void validationCoachList(List<Coach> coachList){
+        if(coachList.size()<2 || coachList.size()>5){
+            throw new IllegalArgumentException(ErrorMessage.COACH_PERSONNEL_ERROR.getMsg());
+        }
+
+    }
 }
