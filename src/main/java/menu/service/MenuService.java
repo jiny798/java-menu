@@ -5,34 +5,47 @@ import menu.domain.Coach;
 import menu.utils.Category;
 import menu.utils.Food;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class MenuService {
 
-    public void selectMenu(List<Coach> coachList) {
+    private Map<Category,Integer> map = new HashMap<>();
+    public List<Category> selectMenu(List<Coach> coachList) {
         List<Category> categoryList = new ArrayList<>();
         selectCategory(categoryList); // categoryList에 카테고리 5개 담기
 
         runRecommend(coachList,categoryList); // 각 코치별 먹을 음식 담기
-
+        return categoryList;
     }
 
     public void selectCategory(List<Category> categoryList){
         while(categoryList.size() < 5){
             int num = Randoms.pickNumberInRange(1,5);
             Category category = Category.createCategory(num);
+
             if(isOutOfCountCategory(category)){
                 continue;
+            }else{
+                putMap(category);
+                categoryList.add(category);
             }
-            categoryList.add(category);
         }
     }
     public boolean isOutOfCountCategory(Category category){
-        return false;
+        if(map.get(category)==null || map.get(category) <= 1){
+            return false;
+        }else{
+            return true;
+        }
     }
 
+    public void putMap(Category category){
+        if(map.get(category)==null){
+            map.put(category,1);
+        }else{
+            map.put(category, map.get(category)+1);
+        }
+    }
     public void runRecommend(List<Coach> coachList,List<Category> categoryList){
         for(int i=0;i<coachList.size();i++){
             Coach findCoach = coachList.get(i);

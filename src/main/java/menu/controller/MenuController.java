@@ -30,10 +30,10 @@ public class MenuController {
         System.out.println("코치사이즈"+coachList.size());
         readDisLikeFood(coachList);
 
-        menuService.selectMenu(coachList);
+        List<Category> categoryList = menuService.selectMenu(coachList);
 
         System.out.println(OutputMessage.RECOMMENDED_RESULT.getMessage());
-        menuView.printMenuListByCoaches(coachList);
+        menuView.printMenuListByCoaches(coachList,categoryList);
         System.out.println(OutputMessage.EXIT_MESSAGE.getMessage());
     }
 
