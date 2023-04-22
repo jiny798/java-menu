@@ -1,5 +1,6 @@
 package menu.domain;
 
+import menu.controller.Validator;
 import menu.utils.ErrorMessage;
 import menu.utils.Food;
 
@@ -35,7 +36,15 @@ public class Coach {
     }
 
     public void addDisLikeFood(Food food){
+        validationDisLikeFoodList(dislikeFoods);
         this.dislikeFoods.add(food);
+    }
+
+    public void validationDisLikeFoodList(List<Food> dislikeFoods){
+        if(dislikeFoods.size() >= 2){
+            dislikeFoods.clear();
+            throw new IllegalArgumentException(ErrorMessage.COACH_DISLIKE_FOOD_COUNT_ERROR.getMsg());
+        }
     }
 
     public boolean isDisLikeFood(Food food){

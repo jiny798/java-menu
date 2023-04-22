@@ -23,20 +23,16 @@ public class MenuView {
         return coachList;
     }
 
-    public List<Food> inputDislikeFood(Coach coach){
+    public String inputDislikeFood(Coach coach){
         System.out.printf(OutputMessage.INPUT_DISLIKE_FOOD.getMessage(),coach.getName());
         String names = Console.readLine();
         String[] name_arr = names.split(",");
-        List<Food> disLikeFoodList = Arrays.stream(name_arr)
-                .map(name ->{
-                    Food food = Food.createFood(name);
+        Arrays.stream(name_arr)
+                .forEach(foodName ->{
+                    Food food = Food.createFood(foodName);
                     coach.addDisLikeFood(food);
-                    return food;
-                })
-                .collect(Collectors.toList());
-
-
-        return disLikeFoodList;
+                });
+        return "ok";
     }
 
     public void printMenuListByCoaches(List<Coach> coachList){

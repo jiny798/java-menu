@@ -10,6 +10,7 @@ import menu.view.MenuView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -26,6 +27,7 @@ public class MenuController {
     public void run(){
         List<Coach> coachList = new ArrayList<>();
         inputCoachList(coachList);
+        System.out.println("코치사이즈"+coachList.size());
         readDisLikeFood(coachList);
 
         menuService.selectMenu(coachList);
@@ -37,14 +39,20 @@ public class MenuController {
 
     public void readDisLikeFood(List<Coach> coachNames){
         coachNames.stream()
-                .map(menuView::inputDislikeFood)
-                .collect(Collectors.toList());
+                .forEach(o->{
+                    repeat(() -> menuView.inputDislikeFood(o));
+                });
     }
 
     public void inputCoachList(List<Coach> coachList){
         try {
-            coachList = repeat(()->menuView.inputCoachName());
-            Validator.validationCoachList(coachList);
+            List<Coach> coaches = repeat(()->menuView.inputCoachName());
+            Validator.validationCoachList(coaches);
+            coaches.stream()
+                    .forEach(o->{
+                        coachList.add(o);
+                    });
+
         }catch (IllegalArgumentException ex){
             System.out.println(ex.getMessage());
             inputCoachList(coachList);

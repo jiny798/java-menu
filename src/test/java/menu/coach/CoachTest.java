@@ -3,9 +3,11 @@ package menu.coach;
 import menu.controller.Validator;
 import menu.domain.Coach;
 import menu.utils.ErrorMessage;
+import menu.utils.Food;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CoachTest {
@@ -31,4 +33,18 @@ public class CoachTest {
                 .hasMessageContaining(ErrorMessage.COACH_PERSONNEL_ERROR.getMsg());
 
     }
+
+    @Test
+    void Count_못먹는메뉴_최대2개_예외(){
+        Coach coach = Coach.createCoach("박진군");
+        List<Food> foodList = List.of(Food.규동,Food.김밥,Food.끼슈);
+
+        Assertions.assertThatThrownBy(()->{
+            for(Food food : foodList){
+                coach.addDisLikeFood(food);
+            }
+        }).isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining(ErrorMessage.COACH_DISLIKE_FOOD_COUNT_ERROR.getMsg());
+    }
+
 }
