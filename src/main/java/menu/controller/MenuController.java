@@ -44,7 +44,7 @@ public class MenuController {
     public void inputCoachList(List<Coach> coachList){
         try {
             coachList = repeat(()->menuView.inputCoachName());
-            validationCoachList(coachList);
+            Validator.validationCoachList(coachList);
         }catch (IllegalArgumentException ex){
             System.out.println(ex.getMessage());
             inputCoachList(coachList);
@@ -59,12 +59,5 @@ public class MenuController {
             System.out.println(ex.getMessage());
             return repeat(read);
         }
-    }
-
-    public void validationCoachList(List<Coach> coachList){
-        if(coachList.size()<2 || coachList.size()>5){
-            throw new IllegalArgumentException(ErrorMessage.COACH_PERSONNEL_ERROR.getMsg());
-        }
-
     }
 }
