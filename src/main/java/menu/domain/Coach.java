@@ -63,4 +63,8 @@ public class Coach {
                 .collect(Collectors.toList());
         return "[ "+joiner.toString()+" ]";
     }
+
+    public List<Food> getDislikeFoods(){
+        return dislikeFoods;
+    }
 }

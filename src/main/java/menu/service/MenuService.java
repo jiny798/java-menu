@@ -54,13 +54,21 @@ public class MenuService {
     }
 
     public void selectFoodList(Coach coach,List<Category> categoryList){
-
-        for(int i=0;i<categoryList.size();i++){
-            Category category = categoryList.get(i);
+        List<Food> dislikeFoods = coach.getDislikeFoods();
+        int index =0;
+        while(coach.getRecommendFoods().size() < 5){
+            Category category = categoryList.get(index);
             List<Food> foods = Food.getFoodListByCategoryName(category.name());
             Food selectedFood = Randoms.shuffle(foods).get(0);
 
-            coach.getRecommendFoods().add(selectedFood);
+            if(dislikeFoods.contains(selectedFood)){
+                continue;
+            }else {
+                coach.getRecommendFoods().add(selectedFood);
+                dislikeFoods.add(selectedFood);
+                index++;
+            }
+
         }
 
     }
