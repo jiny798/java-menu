@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 public class MenuView {
 
     public List<Coach> inputCoachName(){
-        System.out.println(OutputMessage.INIT_MESSAGE.getMessage()+"\n");
         System.out.println(OutputMessage.INPUT_COACH_NAMES.getMessage());
         String names = Console.readLine();
         String[] name_arr = names.split(",");
@@ -27,6 +26,10 @@ public class MenuView {
     public String inputDislikeFood(Coach coach){
         System.out.printf(OutputMessage.INPUT_DISLIKE_FOOD.getMessage(),coach.getName());
         String names = Console.readLine();
+        if(names==null || names.equals("")){
+            return "ok";
+        }
+
         String[] name_arr = names.split(",");
         Arrays.stream(name_arr)
                 .forEach(foodName ->{
@@ -42,10 +45,12 @@ public class MenuView {
         for (Category category : categoryList){
             joiner.add(category.name());
         }
-        System.out.println("[ "+joiner+" ]");
+        System.out.println("[ 카테고리 | "+joiner+" ]");
 
         for (Coach coach : coachList){
-            System.out.println(coach.toMessage());
+            String str = coach.toMessage();
+            str = str.replaceAll("_"," ");
+            System.out.println(str);
         }
     }
 

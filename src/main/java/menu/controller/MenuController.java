@@ -26,8 +26,9 @@ public class MenuController {
 
     public void run(){
         List<Coach> coachList = new ArrayList<>();
+        System.out.println(OutputMessage.INIT_MESSAGE.getMessage()+"\n");
         inputCoachList(coachList);
-        System.out.println("코치사이즈"+coachList.size());
+
         readDisLikeFood(coachList);
 
         List<Category> categoryList = menuService.selectMenu(coachList);

@@ -68,7 +68,12 @@ public enum Food {
     public String getCategoryName(){return category.name();}
 
     public static Food createFood(String foodName){
-        return Food.valueOf(foodName);
+        for(Food food : values()){
+            if(food.name().equals(foodName)){
+                return Food.valueOf(foodName);
+            }
+        }
+        throw new IllegalArgumentException(ErrorMessage.NOT_EXIST_FOOD.getMsg());
     }
 
     public static List<Food> getFoodListByCategoryName(String categoryName){
@@ -76,6 +81,17 @@ public enum Food {
         for(Food food : values()){
             if(food.getCategoryName().equals(categoryName)){
                 foodList.add(food);
+            }
+        }
+        return foodList;
+    }
+
+    public static List<String> getFoodNameList(String categoryName){
+        List<String> foodList = new ArrayList<>();
+        for(Food food : values()){
+            if(food.getCategoryName().equals(categoryName)){
+                String str = food.name().replaceAll("_"," ");
+                foodList.add(str);
             }
         }
         return foodList;

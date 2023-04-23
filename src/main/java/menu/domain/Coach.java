@@ -35,6 +35,10 @@ public class Coach {
         return name;
     }
 
+    public void addRecommendFood(Food food){
+        dislikeFoods.add(food);
+        recommendFoods.add(food);
+    }
     public void addDisLikeFood(Food food){
         validationDisLikeFoodList(dislikeFoods);
         this.dislikeFoods.add(food);
